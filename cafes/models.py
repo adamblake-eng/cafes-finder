@@ -46,6 +46,6 @@ class Review(models.Model):
      reviewer_name = models.CharField(max_length=100, default="Anonymous")
 
      def __str__(self):
-        return f"{self.name.cafe}: {self.comment}, by {self,self.reviewer_name}"
+        return f"{self.cafe.name}: {self.comment}, by {self.reviewer_name}"
 
 
