@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from .models import Cafe, Barrio, Review
 from .serializers import CafeSerializer, BarrioSerializer, ReviewSerializer
 
@@ -27,11 +29,16 @@ class BarrioViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Barrio.objects.all().order_by('name')
     serializer_class = BarrioSerializer
 
-class ReviewViewSet(viewsets.ReadOnlyModelViewSet):
+class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
 
-
+def create_review(request):
+    serializer = ReviewSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 

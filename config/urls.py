@@ -19,5 +19,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
         # This one line includes all the URLs the router generated for us.
     path('api/', include(router.urls)),
+    path('api/reviews/', views.create_review, name='create_review')
 ]
 
