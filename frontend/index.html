@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Porteño Café Finder</title>
+    <style>
+        /* A minimal amount of CSS to make it readable */
+        body { font-family: sans-serif; max-width: 800px; margin: 2rem auto; }
+        .cafe-card { border: 1px solid #ccc; padding: 1rem; margin-bottom: 1rem; }
+    </style>
+</head>
+<body>
+
+    <h1>BEST EVER EVER Café Finder (Better than Tom's)</h1>
+
+    <button id="sort-btn">Sort by Name (A-Z)</button>
+
+    <label>
+        <input type="checkbox" id="filter-checkbox">
+        Show Good Medialunas Only
+    </label>
+    <hr/> 
+
+    <!-- This is the placeholder where our cafes will be injected -->
+    <div id="cafe-list">
+        <p>Keeping you waiting for no reason...(whilst you wait please think about Dog)</p>
+        <img src="dog.png" alt="Thinking about dog" style="max-width: 300px; display: block; margin-top: 1rem;">
+    </div>
+
+    <script>
+        // Get a reference to our placeholder div.
+        const cafeListDiv = document.getElementById('cafe-list');
+
+        let allCafes = [];
+
+        // Create the sleep function
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        function renderCafes(cafesToRender) {
+          cafeListDiv.innerHTML = ''; // Clear existing content
+
+          for (const cafe of cafesToRender) {
+              const cafeHTML = `<div class="cafe-card">
+                        <h2>${cafe.name}</h2>
+                        <p>Barrio: ${cafe.barrio}</p>
+                        <p>Rating: ${cafe.rating} / 5</p>
+                    </div>`;
+              cafeListDiv.insertAdjacentHTML('beforeend', cafeHTML);
+          }
+        } 
+        
+        // Define the main function that will run.
+        // 'async' prepares it for a waiting step.
+        async function getCafes() {
+          const response = await fetch('http://localhost:8000/api/cafes/');
+          // Instead of 'const cafes = ...', save to our global variable
+          allCafes = await response.json();
+
+          await sleep(6000)
+          
+          // Call our new render function with the full list
+          renderCafes(allCafes);
+      }
+
+        // Run the main function.
+        getCafes();
+
+
+        // Make the sorting by name button work
+        const sortBtn = document.getElementById('sort-btn');
+
+        sortBtn.addEventListener('click', () => {
+            // Create a *copy* of the allCafes array and sort it by name
+            const sortedCafes = [...allCafes].sort((a, b) => {
+                return a.name.localeCompare(b.name);
+            });
+            
+            // Call our render function with the newly sorted list!
+            renderCafes(sortedCafes);
+        });
+
+        const filterCheckbox = document.getElementById('filter-checkbox');
+
+      filterCheckbox.addEventListener('change', () => {
+          // Check if the box is currently checked
+          if (filterCheckbox.checked) {
+              // If it is, filter the master list to a new list
+              const filteredCafes = allCafes.filter(cafe => {
+                  return cafe.has_good_medialunas === true;
+              });
+              // Render only the filtered list
+              renderCafes(filteredCafes);
+          } else {
+              // If it's not checked, render the original, full list
+              renderCafes(allCafes);
+          }
+      });
+    </script>
+
+</body>
+</html>
