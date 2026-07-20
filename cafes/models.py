@@ -57,5 +57,3 @@ class Comment(models.Model):
 
      def __str__(self):
         return f"{self.cafe.name}: {self.comment}, by {self.reviewer_name}"
-
-
