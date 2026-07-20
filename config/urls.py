@@ -11,7 +11,8 @@ router = DefaultRouter()
     # and use 'cafes' as the URL prefix."
 router.register(r'cafes', views.CafeViewSet, basename="cafe")
 router.register(r'barrios', views.BarrioViewSet, basename="barrio")
-router.register(r'reviews', views.ReviewViewSet, basename="review")
+router.register(r'reviews', views.CommentViewSet, basename="review")
+router.register(r'reviewers', views.ReviewerViewSet, basename="reviewer")
 
 
 
