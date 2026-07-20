@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework import viewsets, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Cafe, Barrio, Comment, Reviewer
-from .serializers import CafeSerializer, BarrioSerializer, CommentSerializer, ReviewerSerializer
+from .models import Cafe, Barrio, Review
+from .serializers import CafeSerializer, BarrioSerializer, ReviewSerializer
 
 class CafeViewSet(viewsets.ReadOnlyModelViewSet):
         # 1. queryset: Defines the collection of objects that this
@@ -29,16 +29,12 @@ class BarrioViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Barrio.objects.all().order_by('name')
     serializer_class = BarrioSerializer
 
-class CommentViewSet(viewsets.ModelViewSet):
-    queryset = Comment.objects.all()
-    serializer_class = CommentSerializer
-
-class ReviewerViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Reviewer.objects.all()
-    serializer_class = ReviewerSerializer
+class ReviewViewSet(viewsets.ModelViewSet):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
 
 def create_review(request):
-    serializer = CommentSerializer(data=request.data)
+    serializer = ReviewSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)

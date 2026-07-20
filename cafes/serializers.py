@@ -1,31 +1,27 @@
 from rest_framework import serializers
-from .models import Cafe, Barrio, Comment, Reviewer
+from .models import Cafe, Barrio, Review
 
-class ReviewerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Reviewer
-        fields = ['name', 'join_date']
 
-class CommentSerializer(serializers.ModelSerializer):
+class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Comment
+        model = Review
         fields = ['cafe', 'comment', 'reviewer_name']
 
     # We create a class that inherits from DRF's ModelSerializer.
 class CafeSerializer(serializers.ModelSerializer):
 
     number_of_reviews = serializers.SerializerMethodField()
-    reviews = CommentSerializer(many=True, read_only=True, source="review_set")
+    reviews = ReviewSerializer(many=True, read_only=True, source="review_set")
     summary = serializers.SerializerMethodField()
         # The Meta class is where we configure the serializer.
     class Meta:
             # 1. Tell the serializer which model it's based on.
         model = Cafe
             # 2. Define the "whitelist" of fields to include in the API.
-        fields = ['id', 'name', 'barrio', 'address', 'rating', 'has_good_medialunas', 'summary', 'number_of_reviews', 'reviews', 'notes']
+        fields = ['id', 'name', 'barrio', 'address', 'rating', 'has_good_medialunas', 'summary', 'number_of_reviews', 'reviews']
     
     def get_barrio(self, obj):
-        return obj.barrio.label
+        return obj.barrio.value
     
     def get_summary(self, obj):
         return f"{obj.name} is a {obj.rating}-star cafe."

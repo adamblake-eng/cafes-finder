@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Porteño Café Finder</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <h1>BEST EVER EVER Café Finder (Better than Tom's)</h1>
+
+    <div id="controls">
+        <button id="sort-btn">Sort by Name (A-Z)</button>
+
+        <label>
+            <input type="checkbox" id="filter-checkbox">
+            Show Good Medialunas Only
+        </label>
+        <hr/>
+    </div>
+
+    <img src="dogface.png" id="mouse-dog" class="follower-dog" alt="Dog face tracking mouse">
+
+    <!-- This is the placeholder where our cafes will be injected -->
+    <div id="cafe-list">
+        <p>Keeping you waiting for no reason...(whilst you wait please think about Dog)</p>
+        <img src="dog.png" alt="Thinking about dog" class="spiraling-dog dance-1">
+        <img src="dog.png" alt="Thinking about dog" class="spiraling-dog dance-2">
+        <img src="dog.png" alt="Thinking about dog" class="spiraling-dog dance-3">
+        <img src="dog.png" alt="Thinking about dog" class="spiraling-dog dance-4">
+        <img src="dog.png" alt="Thinking about dog" class="spiraling-dog dance-5">
+    </div>
+
+    <div id="review-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="close-modal">&times;</span>
+            <h2 id="modal-cafe-name">Cafe Reviews</h2>
+            
+            <div id="modal-reviews-list"></div>
+            
+            <hr style="margin: 1.5rem 0; border: 0; border-top: 1px solid #ccc;"/>
+            
+            <h3>Add a Review</h3>
+            <form id="add-review-form">
+                <input type="hidden" id="form-cafe-id">
+                <div style="margin-bottom: 0.8rem;">
+                    <input type="text" id="form-reviewer-name" placeholder="Your Name" required style="width: 100%; padding: 0.5rem; box-sizing: border-box;">
+                </div>
+                <div style="margin-bottom: 0.8rem;">
+                    <textarea id="form-comment" placeholder="Write your review here..." rows="3" required style="width: 100%; padding: 0.5rem; box-sizing: border-box; resize: vertical;"></textarea>
+                </div>
+                <button type="submit" style="background-color: #e67e22; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; font-weight: bold;">Submit Review</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Get a reference to our placeholder div.
+        const cafeListDiv = document.getElementById('cafe-list');
+        const controlsDiv = document.getElementById('controls');
+        const mouseDog = document.getElementById('mouse-dog');
+        const sortBtn = document.getElementById('sort-btn');
+        const filterCheckbox = document.getElementById('filter-checkbox');
+
+        const reviewModal = document.getElementById('review-modal');
+        const modalCafeName = document.getElementById('modal-cafe-name');
+        const modalReviewsList = document.getElementById('modal-reviews-list');
+        const closeModalBtn = document.getElementById('close-modal');
+
+        const addReviewForm = document.getElementById('add-review-form');
+        const formCafeId = document.getElementById('form-cafe-id');
+        const formReviewerName = document.getElementById('form-reviewer-name');
+        const formComment = document.getElementById('form-comment');
+        
+        let allCafes = [];
+
+        // Create the sleep function
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        function renderCafes(cafesToRender) {
+          cafeListDiv.innerHTML = ''; // Clear existing content
+
+          for (const cafe of cafesToRender) {
+              const cafeHTML = `
+                <div class="cafe-card" style="cursor: pointer;" onclick="openCafeReviews(${cafe.id}, '${cafe.name.replace(/'/g, "\\'")}')">                    <img src="dogface.png" class="side-dog left-dog" alt="spinning dog left">
+                    <img src="dogface.png" class="side-dog right-dog" alt="spinning dog right">
+                        <h2>${cafe.name}</h2>
+                        <p>Barrio: ${cafe.barrio}</p>
+                        <p>Rating: ${cafe.rating} / 5</p>
+                            <div class="review-badge">
+                        Reviews: ${cafe.number_of_reviews || 0}
+                        </div>
+                    </div>`;
+              cafeListDiv.insertAdjacentHTML('beforeend', cafeHTML);
+          }
+        } 
+
+        async function openCafeReviews(cafeId, cafeName) {
+            modalCafeName.innerText = `${cafeName} - Reviews`;
+            modalReviewsList.innerHTML = '<p>Loading reviews...</p>';
+            reviewModal.style.display = 'block';
+            
+            // Set the hidden ID field so our form knows which cafe we are reviewing!
+            formCafeId.value = cafeId; 
+
+            try {
+                const response = await fetch(`http://localhost:8000/api/cafes/${cafeId}/`);
+                const cafeDetails = await response.json();
+                
+                modalReviewsList.innerHTML = '';
+                
+                if (!cafeDetails.reviews || cafeDetails.reviews.length === 0) {
+                    modalReviewsList.innerHTML = '<p>No reviews yet for this cafe. Be the first!</p>';
+                    return;
+                }
+
+                for (const r of cafeDetails.reviews) {
+                    const reviewHTML = `
+                        <div class="popup-review-item">
+                            <strong>${r.reviewer_name}</strong>
+                            <p>"${r.comment}"</p>
+                        </div>`;
+                    modalReviewsList.insertAdjacentHTML('beforeend', reviewHTML);
+                }
+            } catch (err) {
+                modalReviewsList.innerHTML = '<p>Could not load reviews at this time.</p>';
+                console.error(err);
+            }
+        }
+
+        // 3. BRAND NEW: Listen for form submissions and POST to Django
+        addReviewForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Stop the page from reloading completely
+
+            const cafeId = formCafeId.value;
+            const reviewData = {
+                cafe: parseInt(cafeId),
+                reviewer_name: formReviewerName.value,
+                comment: formComment.value
+            };
+
+            try {
+                const response = await fetch('http://localhost:8000/api/reviews/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(reviewData)
+                });
+
+                if (response.ok) {
+                    // Reset the form input fields
+                    formReviewerName.value = '';
+                    formComment.value = '';
+                    
+                    // Instantly refresh the review window list to show your new comment!
+                    openCafeReviews(cafeId, modalCafeName.innerText.split(' - ')[0]);
+                } else {
+                    alert('Failed to save review. Check backend validations.');
+                }
+            } catch (err) {
+                console.error('Error posting review:', err);
+                alert('Could not connect to database backend.');
+            }
+        });
+
+        // 4. Close modal operations
+        closeModalBtn.addEventListener('click', () => { reviewModal.style.display = 'none'; });
+        window.addEventListener('click', (e) => { if (e.target === reviewModal) { reviewModal.style.display = 'none'; } });
+
+        // ... Keep your getCafes(), sortBtn, and filterCheckbox listeners down here exactly as they are ...
+        
+        // Define the main function that will run.
+        // 'async' prepares it for a waiting step.
+        async function getCafes() {
+          const response = await fetch('http://localhost:8000/api/cafes/');
+          // Instead of 'const cafes = ...', save to our global variable
+          allCafes = await response.json();
+
+          await sleep(10000)
+
+          controlsDiv.style.display = 'block';
+
+          mouseDog.style.display = 'block';
+
+          document.body.style.backgroundImage = "url('dog.png')";
+
+          window.addEventListener('mousemove', (e) => {
+                // e.pageX and e.pageY give us the exact coordinates of the cursor.
+                // Subtracting 40px offsets the image so the cursor rests perfectly in the middle of the dog's face.
+                const x = e.pageX - 40;
+                const y = e.pageY - 40;
+                
+                mouseDog.style.left = `${x}px`;
+                mouseDog.style.top = `${y}px`;
+            });
+          
+          // Call our new render function with the full list
+          renderCafes(allCafes);
+      }
+
+        // Run the main function.
+        getCafes();
+
+
+        // Make the sorting by name button work
+    
+        sortBtn.addEventListener('click', () => {
+            // Create a *copy* of the allCafes array and sort it by name
+            const sortedCafes = [...allCafes].sort((a, b) => {
+                return a.name.localeCompare(b.name);
+            });
+            
+            // Call our render function with the newly sorted list!
+            renderCafes(sortedCafes);
+        });
+
+
+      filterCheckbox.addEventListener('change', () => {
+          // Check if the box is currently checked
+          if (filterCheckbox.checked) {
+              // If it is, filter the master list to a new list
+              const filteredCafes = allCafes.filter(cafe => {
+                  return cafe.has_good_medialunas === true;
+              });
+              // Render only the filtered list
+              renderCafes(filteredCafes);
+          } else {
+              // If it's not checked, render the original, full list
+              renderCafes(allCafes);
+          }
+      });
+    </script>
+
+</body>
+</html>

@@ -28,7 +28,6 @@ class Cafe(models.Model):
     has_good_medialunas = models.BooleanField(default=False)
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=200)
-    notes = models.TextField(blank=True)
 
 
     def __str__(self):
@@ -40,20 +39,11 @@ class Barrio(models.Model):
     
     def __str__(self):
         return f"{self.name} (Comuna {self.comuna})"
-        
-
-class Reviewer(models.Model):
-     name = models.CharField(max_length=100)
-     join_date = models.DateField(null=True)
-
-     def __str__(self):
-          return f"{self.name} ({self.join_date})"
-     
-
-class Comment(models.Model):
+    
+class Review(models.Model):
      cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE)
      comment = models.TextField()
-     reviewer_name = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
+     reviewer_name = models.CharField(max_length=100, default="Anonymous")
 
      def __str__(self):
         return f"{self.cafe.name}: {self.comment}, by {self.reviewer_name}"
