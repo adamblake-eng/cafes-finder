@@ -11,7 +11,6 @@ router = DefaultRouter()
     # and use 'cafes' as the URL prefix."
 router.register(r'cafes', views.CafeViewSet, basename="cafe")
 router.register(r'barrios', views.BarrioViewSet, basename="barrio")
-router.register(r'reviews', views.CommentViewSet, basename="review")
 router.register(r'reviewers', views.ReviewerViewSet, basename="reviewer")
 
 
@@ -19,7 +18,6 @@ router.register(r'reviewers', views.ReviewerViewSet, basename="reviewer")
 urlpatterns = [
     path('admin/', admin.site.urls),
         # This one line includes all the URLs the router generated for us.
-    path('api/', include(router.urls)),
-    path('api/reviews/', views.create_review, name='create_review')
+    path('api/', include(router.urls))
 ]
 

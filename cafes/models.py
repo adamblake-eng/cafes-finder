@@ -50,12 +50,4 @@ class Reviewer(models.Model):
           return f"{self.name} ({self.join_date})"
      
 
-class Comment(models.Model):
-     cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE)
-     comment = models.TextField()
-     reviewer_name = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
-
-     def __str__(self):
-        return f"{self.cafe.name}: {self.comment}, by {self.reviewer_name}"
-
 
