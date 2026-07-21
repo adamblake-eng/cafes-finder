@@ -50,4 +50,3 @@ class Reviewer(models.Model):
           return f"{self.name} ({self.join_date})"
      
 
-

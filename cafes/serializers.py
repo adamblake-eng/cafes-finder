@@ -21,13 +21,3 @@ class BarrioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Barrio
         fields = ['name', 'comuna']
-
-
-
-
-
-
-
-
-
-

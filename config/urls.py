@@ -14,7 +14,6 @@ router.register(r'barrios', views.BarrioViewSet, basename="barrio")
 router.register(r'reviewers', views.ReviewerViewSet, basename="reviewer")
 
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
         # This one line includes all the URLs the router generated for us.
