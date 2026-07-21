@@ -43,10 +43,21 @@ class Barrio(models.Model):
         
 
 class Reviewer(models.Model):
-     name = models.CharField(max_length=100)
-     join_date = models.DateField(null=True)
+    name = models.CharField(max_length=100)
+    join_date = models.DateField(null=True)
 
-     def __str__(self):
-          return f"{self.name} ({self.join_date})"
+    def __str__(self):
+        return f"{self.name} ({self.join_date})"
+     
+class Review(models.Model):
+    cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE)
+    reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
+    comment = models.TextField()
+    rating = models.IntegerField(
+          validators=[MinValueValidator(1), MaxValueValidator(5)]
+      )
+
+    def __str__(self):
+        return f"Review for {self.cafe.name} by {self.reviewer.name}"
      
 

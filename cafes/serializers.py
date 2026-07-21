@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Cafe, Barrio, Reviewer
+from .models import Cafe, Barrio, Reviewer, Review
 
 class ReviewerSerializer(serializers.ModelSerializer):
     class Meta:
@@ -21,3 +21,10 @@ class BarrioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Barrio
         fields = ['name', 'comuna']
+
+class ReviewSerializer(serializers.ModelSerializer):
+    cafe_name = serializers.ReadOnlyField(source="cafe.name")
+    reviewer_name = serializers.ReadOnlyField(source="reviewer.name")
+    class Meta:
+        model = Review
+        fields = ['id', 'cafe', 'cafe_name', 'reviewer', 'reviewer_name', 'comment', 'rating']
