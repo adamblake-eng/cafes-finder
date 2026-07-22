@@ -1,29 +1,21 @@
 from django.shortcuts import render
 from rest_framework import viewsets, status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, action
 from rest_framework.response import Response
 from .models import Cafe, Barrio, Reviewer, Review
 from .serializers import CafeSerializer, BarrioSerializer, ReviewerSerializer, ReviewSerializer
 
 class CafeViewSet(viewsets.ModelViewSet):
-        # 1. queryset: Defines the collection of objects that this
-        #    viewset will operate on. We'll get all cafes, ordered by rating
-        # 2. serializer_class: Tells the viewset which serializer to use
-        #    when converting the Cafe objects to JSON.
+        
     serializer_class = CafeSerializer
-
-    def get_queryset(self):
-        # Start with your original collection of objects, ordered by rating
-        queryset = Cafe.objects.all().order_by("-rating")
-
-        # Check the URL for a ?barrio=... query parameter
-        barrio_param = self.request.query_params.get("barrio")
-
-        # If a barrio parameter was passed, filter down our ordered list
-        if barrio_param is not None:
-            queryset = queryset.filter(barrio__iexact=barrio_param)
-
-        return queryset
+    queryset = Cafe.objects.all().order_by("-rating")
+    
+    @action(detail=True, methods=['get'])
+    def recommend(self, request, pk):
+        cafe = self.get_object()
+        cafe.recommendation_count += 1
+        cafe.save()
+        return Response(status=204)
 
 class BarrioViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Barrio.objects.all().order_by('name')

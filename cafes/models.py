@@ -29,6 +29,7 @@ class Cafe(models.Model):
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=200)
     notes = models.TextField(blank=True)
+    recommendation_count = models.IntegerField(default = 0)
 
 
     def __str__(self):
