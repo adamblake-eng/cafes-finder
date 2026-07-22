@@ -12,6 +12,7 @@ router = DefaultRouter()
 router.register(r'cafes', views.CafeViewSet, basename="cafe")
 router.register(r'barrios', views.BarrioViewSet, basename="barrio")
 router.register(r'reviewers', views.ReviewerViewSet, basename="reviewer")
+router.register(r'reviews', views.ReviewViewSet, basename="review")
 
 
 urlpatterns = [

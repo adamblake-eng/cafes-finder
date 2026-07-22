@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework import viewsets, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Cafe, Barrio, Reviewer
-from .serializers import CafeSerializer, BarrioSerializer, ReviewerSerializer
+from .models import Cafe, Barrio, Reviewer, Review
+from .serializers import CafeSerializer, BarrioSerializer, ReviewerSerializer, ReviewSerializer
 
 class CafeViewSet(viewsets.ModelViewSet):
         # 1. queryset: Defines the collection of objects that this
@@ -32,6 +32,10 @@ class BarrioViewSet(viewsets.ReadOnlyModelViewSet):
 class ReviewerViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Reviewer.objects.all()
     serializer_class = ReviewerSerializer
+
+class ReviewViewSet(viewsets.ModelViewSet):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
 
 
 
