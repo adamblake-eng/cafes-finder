@@ -9,7 +9,7 @@ class ReviewerSerializer(serializers.ModelSerializer):
 class CafeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cafe
-        fields = ['id', 'name', 'barrio', 'address', 'rating', 'has_good_medialunas', 'notes']
+        fields = ['id', 'name', 'barrio', 'address', 'rating', 'has_good_medialunas', 'notes', 'recommendation_count']
     
     def get_barrio(self, obj):
         return obj.barrio.label
