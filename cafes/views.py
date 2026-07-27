@@ -3,13 +3,13 @@ from django.db.models import F
 from rest_framework import viewsets, status
 from rest_framework.decorators import api_view, action
 from rest_framework.response import Response
-from .models import Cafe, Barrio, Reviewer, Review
-from .serializers import CafeSerializer, BarrioSerializer, ReviewerSerializer, ReviewSerializer
+from .models import Cafe, Barrio, Reviewer, Review, Tag
+from .serializers import CafeSerializer, BarrioSerializer, ReviewerSerializer, ReviewSerializer, TagSerializer
 
 class CafeViewSet(viewsets.ModelViewSet):
         
     serializer_class = CafeSerializer
-    queryset = Cafe.objects.all().order_by("-rating")
+    queryset = Cafe.objects.all()
     
     @action(detail=True, methods=['post'])
     def recommend(self, request, pk):
@@ -41,6 +41,10 @@ class ReviewerViewSet(viewsets.ReadOnlyModelViewSet):
 class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
+
+class TagViewSet(viewsets.ModelViewSet):
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
 
 
 

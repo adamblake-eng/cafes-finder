@@ -1,0 +1,180 @@
+[
+    {
+        "model": "cafes.cafe",
+        "pk": 2,
+        "fields": {
+            "barrio": "BOC",
+            "has_good_medialunas": true,
+            "name": "The Mouth",
+            "address": "la boca 3275",
+            "notes": "",
+            "recommendation_count": 6,
+            "tags": []
+        }
+    },
+    {
+        "model": "cafes.cafe",
+        "pk": 3,
+        "fields": {
+            "barrio": "BLG",
+            "has_good_medialunas": false,
+            "name": "Sagrada Familia",
+            "address": "8794 uruguay",
+            "notes": "",
+            "recommendation_count": 0,
+            "tags": []
+        }
+    },
+    {
+        "model": "cafes.cafe",
+        "pk": 4,
+        "fields": {
+            "barrio": "STL",
+            "has_good_medialunas": true,
+            "name": "Club de la madre que me pario",
+            "address": "cordoba 7823",
+            "notes": "",
+            "recommendation_count": 0,
+            "tags": []
+        }
+    },
+    {
+        "model": "cafes.cafe",
+        "pk": 5,
+        "fields": {
+            "barrio": "REC",
+            "has_good_medialunas": false,
+            "name": "el boludito",
+            "address": "avenida boludo 4234",
+            "notes": "",
+            "recommendation_count": 0,
+            "tags": []
+        }
+    },
+    {
+        "model": "cafes.cafe",
+        "pk": 6,
+        "fields": {
+            "barrio": "CLG",
+            "has_good_medialunas": false,
+            "name": "Argensimia",
+            "address": "cramer 2838",
+            "notes": "",
+            "recommendation_count": 0,
+            "tags": []
+        }
+    },
+    {
+        "model": "cafes.cafe",
+        "pk": 7,
+        "fields": {
+            "barrio": "NUZ",
+            "has_good_medialunas": true,
+            "name": "La mufa",
+            "address": "santa maria 3462",
+            "notes": "",
+            "recommendation_count": 0,
+            "tags": []
+        }
+    },
+    {
+        "model": "cafes.cafe",
+        "pk": 8,
+        "fields": {
+            "barrio": "NUZ",
+            "has_good_medialunas": false,
+            "name": "El cagado a trompadas",
+            "address": "piñas 3625",
+            "notes": "",
+            "recommendation_count": 0,
+            "tags": []
+        }
+    },
+    {
+        "model": "cafes.cafe",
+        "pk": 9,
+        "fields": {
+            "barrio": "PAL",
+            "has_good_medialunas": true,
+            "name": "Test",
+            "address": "Test",
+            "notes": "Test",
+            "recommendation_count": 0,
+            "tags": []
+        }
+    },
+    {
+        "model": "cafes.barrio",
+        "pk": 1,
+        "fields": {
+            "name": "Palermo",
+            "comuna": 14
+        }
+    },
+    {
+        "model": "cafes.barrio",
+        "pk": 2,
+        "fields": {
+            "name": "San Telmo",
+            "comuna": 1
+        }
+    },
+    {
+        "model": "cafes.barrio",
+        "pk": 3,
+        "fields": {
+            "name": "Recoleta",
+            "comuna": 2
+        }
+    },
+    {
+        "model": "cafes.barrio",
+        "pk": 4,
+        "fields": {
+            "name": "Almagro",
+            "comuna": 5
+        }
+    },
+    {
+        "model": "cafes.barrio",
+        "pk": 5,
+        "fields": {
+            "name": "La Boca",
+            "comuna": 4
+        }
+    },
+    {
+        "model": "cafes.reviewer",
+        "pk": 2,
+        "fields": {
+            "name": "Charly Garcia",
+            "join_date": "2026-07-20"
+        }
+    },
+    {
+        "model": "cafes.reviewer",
+        "pk": 3,
+        "fields": {
+            "name": "Dictator Mbappe",
+            "join_date": "2026-06-17"
+        }
+    },
+    {
+        "model": "cafes.reviewer",
+        "pk": 4,
+        "fields": {
+            "name": "Tom Burholt",
+            "join_date": "2026-07-21"
+        }
+    },
+    {
+        "model": "cafes.review",
+        "pk": 1,
+        "fields": {
+            "cafe": 8,
+            "reviewer": 2,
+            "comment": "test",
+            "rating": 4
+        }
+    }
+]
