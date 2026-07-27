@@ -2,6 +2,14 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
+
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
+    
+    
 class Cafe(models.Model):
 
     class BarrioChoices(models.TextChoices):
@@ -14,16 +22,14 @@ class Cafe(models.Model):
           COLEGIALES = 'CLG', 'Colegiales'
 
     class Meta:
-          ordering = ['-rating', 'name']  # Order by highest rating first, then by name
+          ordering = ['name']  # Order by highest rating first, then by name
           
     barrio = models.CharField(
           max_length=3,
           choices=BarrioChoices.choices,
           default=BarrioChoices.PALERMO
       )
-    rating = models.IntegerField(
-          validators=[MinValueValidator(1), MaxValueValidator(5)]
-      )
+    
     
     has_good_medialunas = models.BooleanField(default=False)
     name = models.CharField(max_length=100)
@@ -31,9 +37,11 @@ class Cafe(models.Model):
     notes = models.TextField(blank=True)
     recommendation_count = models.IntegerField(default = 0)
 
+    tags = models.ManyToManyField(Tag, related_name='cafes')
+
 
     def __str__(self):
-        return f"{self.name} ({self.barrio}) ({self.rating})"
+        return f"{self.name} ({self.barrio})"
     
 class Barrio(models.Model):
     name = models.CharField(max_length=50, unique=True)
@@ -51,8 +59,8 @@ class Reviewer(models.Model):
         return f"{self.name} ({self.join_date})"
      
 class Review(models.Model):
-    cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE)
-    reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
+    cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE, related_name='reviews')
+    reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE, related_name='reviews')
     comment = models.TextField()
     rating = models.IntegerField(
           validators=[MinValueValidator(1), MaxValueValidator(5)]
@@ -60,5 +68,6 @@ class Review(models.Model):
 
     def __str__(self):
         return f"Review for {self.cafe.name} by {self.reviewer.name}"
+    
      
 

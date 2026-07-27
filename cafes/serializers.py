@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Cafe, Barrio, Reviewer, Review
+from .models import Cafe, Barrio, Reviewer, Review, Tag
 
 class ReviewerSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,7 +9,7 @@ class ReviewerSerializer(serializers.ModelSerializer):
 class CafeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cafe
-        fields = ['id', 'name', 'barrio', 'address', 'rating', 'has_good_medialunas', 'notes', 'recommendation_count']
+        fields = ['id', 'name', 'barrio', 'address', 'has_good_medialunas', 'notes', 'recommendation_count', 'tags']
     
     def get_barrio(self, obj):
         return obj.barrio.label
@@ -28,3 +28,8 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = ['id', 'cafe', 'cafe_name', 'reviewer', 'reviewer_name', 'comment', 'rating']
+
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = ['name']
