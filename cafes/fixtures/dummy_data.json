@@ -1,205 +1,340 @@
 [
-    {
-        "model": "cafes.barrio",
-        "pk": 1,
-        "fields": { "name": "Palermo", "comuna": 14 }
-    },
-    {
-        "model": "cafes.barrio",
-        "pk": 2,
-        "fields": { "name": "San Telmo", "comuna": 1 }
-    },
-    {
-        "model": "cafes.barrio",
-        "pk": 3,
-      
-        "fields": { "name": "Recoleta", "comuna": 2 }
-    },
-    {
-        "model": "cafes.barrio",
-        "pk": 4,
-        "fields": { "name": "La Boca", "comuna": 4 }
-    },
-    {
-        "model": "cafes.barrio",
-        "pk": 5,
-        "fields": { "name": "Belgrano", "comuna": 13 }
-    },
-    {
-        "model": "cafes.barrio",
-        "pk": 6,
-        "fields": { "name": "Nuñez", "comuna": 13 }
-    },
-    {
-        "model": "cafes.barrio",
-        "pk": 7,
-        "fields": { "name": "Colegiales", "comuna": 13 }
-    },
-    {
-        "model": "cafes.reviewer",
-        "pk": 1,
-        "fields": { "name": "Sofia Ibarra", "join_date": "2024-03-12" }
-    },
-    {
-        "model": "cafes.reviewer",
-        "pk": 2,
-        "fields": { "name": "Martin Rossi", "join_date": "2024-07-01" }
-    },
-    {
-        "model": "cafes.reviewer",
-        "pk": 3,
-        "fields": { "name": "Camila Duarte", "join_date": "2025-01-20" }
-    },
-    {
-        "model": "cafes.reviewer",
-        "pk": 4,
-        "fields": { "name": "Tomas Vega", "join_date": "2025-06-05" }
-    },
-    {
-        "model": "cafes.cafe",
-        "pk": 1,
-        "fields": {
-            "name": "Cafe Curioso",
-            "barrio": "PAL",
-            "address": "Miraflores 123",
-            "has_good_medialunas": true,
-            "notes": "Good for working. Good coffee.",
-            "recommendation_count": 12
-        }
-    },
-    {
-        "model": "cafes.cafe",
-        "pk": 2,
-        "fields": {
-            "name": "La Biela",
-            "barrio": "REC",
-            "address": "Quintana 600",
-            "has_good_medialunas": false,
-            "notes": "Outdoor seating. Historical.",
-            "recommendation_count": 8
-        }
-    },
-    {
-        "model": "cafes.cafe",
-        "pk": 3,
-        "fields": {
-            "name": "Coffee Town",
-            "barrio": "STL",
-            "address": "Bolivar 976",
-            "has_good_medialunas": true,
-            "notes": "Good coffee.",
-            "recommendation_count": 21
-        }
-    },
-    {
-        "model": "cafes.cafe",
-        "pk": 4,
-        "fields": {
-            "name": "Bar Britanico",
-            "barrio": "STL",
-            "address": "Av. Brasil 399",
-            "has_good_medialunas": false,
-            "notes": "Historical.",
-            "recommendation_count": 3
-        }
-    },
-    {
-        "model": "cafes.cafe",
-        "pk": 5,
-        "fields": {
-            "name": "El Gato Negro",
-            "barrio": "PAL",
-            "address": "Av. Corrientes 1669",
-            "has_good_medialunas": false,
-            "notes": "Historical.",
-            "recommendation_count": 7
-        }
-    },
-    {
-        "model": "cafes.cafe",
-        "pk": 6,
-        "fields": {
-            "name": "Libros del Pasaje",
-            "barrio": "PAL",
-            "address": "Thames 1762",
-            "has_good_medialunas": true,
-            "notes": "Good for working.",
-            "recommendation_count": 15
-        }
-    },
-    {
-        "model": "cafes.review",
-        "pk": 1,
-        "fields": {
-            "cafe": 1,
-            "reviewer": 1,
-            "rating": 5,
-            "comment": "A truly great experience. The wifi is also very good."
-        }
-    },
-    {
-        "model": "cafes.review",
-        "pk": 2,
-        "fields": {
-            "cafe": 1,
-            "reviewer": 2,
-            "rating": 5,
-            "comment": "Another great review for Curioso. Consistent quality."
-        }
-    },
-    {
-        "model": "cafes.review",
-        "pk": 3,
-        "fields": {
-            "cafe": 2,
-            "reviewer": 3,
-            "rating": 4,
-            "comment": "A truly historical and iconic spot. A good place to visit."
-        }
-    },
-    {
-        "model": "cafes.review",
-        "pk": 4,
-        "fields": {
-            "cafe": 2,
-            "reviewer": 4,
-            "rating": 1,
-            "comment": "Very disappointing. Not a great day to visit."
-        }
-    },
-    {
-        "model": "cafes.review",
-        "pk": 5,
-        "fields": {
-            "cafe": 3,
-            "reviewer": 1,
-            "rating": 5,
-            "comment": "World-class coffee, right in the heart of the market. A good place to work."
-        }
-    },
-    {
-        "model": "cafes.review",
-        "pk": 6,
-        "fields": {
-            "cafe": 4,
-            "reviewer": 3,
-            "rating": 2,
-            "comment": "The location is great, but the coffee was not good at all."
-        }
-    }
+{
+  "model": "cafes.barrio",
+  "pk": 1,
+  "fields": {
+    "name": "Palermo",
+    "comuna": 14
+  }
+},
+{
+  "model": "cafes.barrio",
+  "pk": 2,
+  "fields": {
+    "name": "San Telmo",
+    "comuna": 1
+  }
+},
+{
+  "model": "cafes.barrio",
+  "pk": 3,
+  "fields": {
+    "name": "Recoleta",
+    "comuna": 2
+  }
+},
+{
+  "model": "cafes.barrio",
+  "pk": 4,
+  "fields": {
+    "name": "La Boca",
+    "comuna": 4
+  }
+},
+{
+  "model": "cafes.barrio",
+  "pk": 5,
+  "fields": {
+    "name": "Belgrano",
+    "comuna": 13
+  }
+},
+{
+  "model": "cafes.barrio",
+  "pk": 6,
+  "fields": {
+    "name": "Nuñez",
+    "comuna": 13
+  }
+},
+{
+  "model": "cafes.barrio",
+  "pk": 7,
+  "fields": {
+    "name": "Colegiales",
+    "comuna": 13
+  }
+},
+{
+  "model": "cafes.tag",
+  "pk": 1,
+  "fields": {
+    "name": "Outdoor Seating"
+  }
+},
+{
+  "model": "cafes.tag",
+  "pk": 2,
+  "fields": {
+    "name": "Good for working"
+  }
+},
+{
+  "model": "cafes.tag",
+  "pk": 3,
+  "fields": {
+    "name": "Good coffee"
+  }
+},
+{
+  "model": "cafes.tag",
+  "pk": 4,
+  "fields": {
+    "name": "Historical"
+  }
+},
+{
+  "model": "cafes.tag",
+  "pk": 6,
+  "fields": {
+    "name": "Specialty Coffee"
+  }
+},
+{
+  "model": "cafes.tag",
+  "pk": 7,
+  "fields": {
+    "name": "Cozy"
+  }
+},
+{
+  "model": "cafes.cafe",
+  "pk": 1,
+  "fields": {
+    "barrio": 1,
+    "has_good_medialunas": true,
+    "name": "Cafe Curioso",
+    "address": "Miraflores 123",
+    "notes": "Good for working. Good coffee.",
+    "recommendation_count": 12,
+    "tags": [
+      1,
+      2
+    ]
+  }
+},
+{
+  "model": "cafes.cafe",
+  "pk": 2,
+  "fields": {
+    "barrio": 3,
+    "has_good_medialunas": false,
+    "name": "La Biela",
+    "address": "Quintana 600",
+    "notes": "Outdoor seating. Historical.",
+    "recommendation_count": 10,
+    "tags": [
+      4
+    ]
+  }
+},
+{
+  "model": "cafes.cafe",
+  "pk": 3,
+  "fields": {
+    "barrio": 2,
+    "has_good_medialunas": true,
+    "name": "Coffee Town",
+    "address": "Bolivar 976",
+    "notes": "Good coffee.",
+    "recommendation_count": 21,
+    "tags": [
+      2,
+      3
+    ]
+  }
+},
+{
+  "model": "cafes.cafe",
+  "pk": 4,
+  "fields": {
+    "barrio": 2,
+    "has_good_medialunas": false,
+    "name": "Bar Britanico",
+    "address": "Av. Brasil 399",
+    "notes": "Historical.",
+    "recommendation_count": 3,
+    "tags": [
+      1,
+      2,
+      3,
+      4
+    ]
+  }
+},
+{
+  "model": "cafes.cafe",
+  "pk": 5,
+  "fields": {
+    "barrio": 1,
+    "has_good_medialunas": false,
+    "name": "El Gato Negro",
+    "address": "Av. Corrientes 1669",
+    "notes": "Historical.",
+    "recommendation_count": 7,
+    "tags": [
+      2,
+      3
+    ]
+  }
+},
+{
+  "model": "cafes.cafe",
+  "pk": 6,
+  "fields": {
+    "barrio": 1,
+    "has_good_medialunas": true,
+    "name": "Libros del Pasaje",
+    "address": "Thames 1762",
+    "notes": "Good for working.",
+    "recommendation_count": 15,
+    "tags": [
+      1,
+      4
+    ]
+  }
+},
+{
+  "model": "cafes.cafe",
+  "pk": 7,
+  "fields": {
+    "barrio": 1,
+    "has_good_medialunas": false,
+    "name": "TESTESTETSTES",
+    "address": "Av Santa Fe 1234",
+    "notes": "",
+    "recommendation_count": 0,
+    "tags": []
+  }
+},
+{
+  "model": "cafes.cafe",
+  "pk": 9,
+  "fields": {
+    "barrio": 1,
+    "has_good_medialunas": true,
+    "name": "MORE TESTSTSTSTSTSTTSETS",
+    "address": "Thames 1890",
+    "notes": "Classic Palermo specialty spot.",
+    "recommendation_count": 10,
+    "tags": [
+      1,
+      4,
+      6,
+      7
+    ]
+  }
+},
+{
+  "model": "cafes.reviewer",
+  "pk": 1,
+  "fields": {
+    "name": "Sofia Ibarra",
+    "join_date": "2024-03-12"
+  }
+},
+{
+  "model": "cafes.reviewer",
+  "pk": 2,
+  "fields": {
+    "name": "Martin Rossi",
+    "join_date": "2024-07-01"
+  }
+},
+{
+  "model": "cafes.reviewer",
+  "pk": 3,
+  "fields": {
+    "name": "Camila Duarte",
+    "join_date": "2025-01-20"
+  }
+},
+{
+  "model": "cafes.reviewer",
+  "pk": 4,
+  "fields": {
+    "name": "Tomas Vega",
+    "join_date": "2025-06-05"
+  }
+},
+{
+  "model": "cafes.review",
+  "pk": 1,
+  "fields": {
+    "cafe": 1,
+    "reviewer": 1,
+    "comment": "A truly great experience. The wifi is also very good.",
+    "rating": 5
+  }
+},
+{
+  "model": "cafes.review",
+  "pk": 2,
+  "fields": {
+    "cafe": 1,
+    "reviewer": 2,
+    "comment": "Another great review for Curioso. Consistent quality.",
+    "rating": 5
+  }
+},
+{
+  "model": "cafes.review",
+  "pk": 3,
+  "fields": {
+    "cafe": 2,
+    "reviewer": 3,
+    "comment": "A truly historical and iconic spot. A good place to visit.",
+    "rating": 4
+  }
+},
+{
+  "model": "cafes.review",
+  "pk": 4,
+  "fields": {
+    "cafe": 2,
+    "reviewer": 4,
+    "comment": "Very disappointing. Not a great day to visit.",
+    "rating": 1
+  }
+},
+{
+  "model": "cafes.review",
+  "pk": 5,
+  "fields": {
+    "cafe": 3,
+    "reviewer": 1,
+    "comment": "World-class coffee, right in the heart of the market. A good place to work.",
+    "rating": 5
+  }
+},
+{
+  "model": "cafes.review",
+  "pk": 6,
+  "fields": {
+    "cafe": 4,
+    "reviewer": 3,
+    "comment": "The location is great, but the coffee was not good at all.",
+    "rating": 2
+  }
+},
+{
+  "model": "cafes.review",
+  "pk": 7,
+  "fields": {
+    "cafe": 7,
+    "reviewer": 2,
+    "comment": "Amazing espresso!",
+    "rating": 5
+  }
+},
+{
+  "model": "cafes.review",
+  "pk": 8,
+  "fields": {
+    "cafe": 7,
+    "reviewer": 2,
+    "comment": "Good wifi.",
+    "rating": 4
+  }
+}
 ]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

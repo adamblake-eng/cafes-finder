@@ -3,6 +3,15 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
 
+class Barrio(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    comuna = models.IntegerField()
+
+    slug = models.SlugField(max_length=100, unique=True, null=True)
+    
+    def __str__(self):
+        return f"{self.name} (Comuna {self.comuna})"
+
 class Tag(models.Model):
     name = models.CharField(max_length=50, unique=True)
 
@@ -12,23 +21,11 @@ class Tag(models.Model):
     
 class Cafe(models.Model):
 
-    class BarrioChoices(models.TextChoices):
-          PALERMO = 'PAL', 'Palermo'
-          SAN_TELMO = 'STL', 'San Telmo'
-          RECOLETA = 'REC', 'Recoleta'
-          LA_BOCA = 'BOC', 'La Boca'
-          BELGRANO = 'BLG', 'Belgrano'
-          NUÑEZ = 'NUZ', 'Nuñez'
-          COLEGIALES = 'CLG', 'Colegiales'
-
     class Meta:
           ordering = ['name']  # Order by highest rating first, then by name
           
-    barrio = models.CharField(
-          max_length=3,
-          choices=BarrioChoices.choices,
-          default=BarrioChoices.PALERMO
-      )
+    
+    barrio = models.ForeignKey(Barrio, on_delete=models.CASCADE, related_name='cafes')
     
     
     has_good_medialunas = models.BooleanField(default=False)
@@ -43,12 +40,9 @@ class Cafe(models.Model):
     def __str__(self):
         return f"{self.name} ({self.barrio})"
     
-class Barrio(models.Model):
-    name = models.CharField(max_length=50, unique=True)
-    comuna = models.IntegerField()
-    
-    def __str__(self):
-        return f"{self.name} (Comuna {self.comuna})"
+    @property
+    def review_count(self) -> int:   
+        return self.reviews.count()
         
 
 class Reviewer(models.Model):
