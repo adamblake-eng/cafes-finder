@@ -25,7 +25,7 @@ class CafeViewSet(viewsets.ModelViewSet):
     
     @action(detail=False, methods=['get'])
     def top_rated(self, request):
-        cafes = Cafe.objects.filter(rating=5) 
+        cafes = Cafe.objects.filter(reviews__rating=5) 
         serializer = self.get_serializer(cafes, many=True) 
         return Response(serializer.data)
 
@@ -33,6 +33,7 @@ class CafeViewSet(viewsets.ModelViewSet):
 class BarrioViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Barrio.objects.all().order_by('name')
     serializer_class = BarrioSerializer
+    lookup_field = 'slug'
 
 class ReviewerViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Reviewer.objects.all()
