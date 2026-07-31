@@ -75,4 +75,3 @@ class Dish(models.Model):
         return f"{self.name} £{self.price} ({self.cafe.name})"
     
      
-
