@@ -40,7 +40,7 @@ class CafeSerializer(serializers.ModelSerializer):
         source='barrio',
         write_only=True)
 
-    tag_names = serializers.ListField(child=serializers.CharField(max_length=50), write_only=True)
+    tag_names = serializers.ListField(child=serializers.CharField(max_length=50), write_only=True, required=False)
 
     @transaction.atomic
     def create(self, validated_data):

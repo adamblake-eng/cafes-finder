@@ -1,5 +1,12 @@
 import pytest
 from cafes.models import Barrio, Cafe
+from rest_framework.test import APIClient
+
+
+
+@pytest.fixture
+def client():
+    return APIClient()
 
 
 @pytest.fixture

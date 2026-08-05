@@ -1,6 +1,7 @@
 import pytest
 from cafes.models import Barrio, Cafe, Review, Reviewer, Tag
 from cafes.serializers import CafeSerializer, BarrioSerializer, ReviewSerializer
+from unittest.mock import Mock
 
 #TESTING GET REQUEST
 
@@ -93,7 +94,38 @@ def test_cafe_serializer_reuses_existing_tags(make_barrio):
     assert serializer.instance.tags.first().name == "Cozy"
 
 
+# USING MOCKS
 
+
+def test_tagline_logic_with_mocked_cafe():
+
+    mock_cafe = Mock()
+
+    mock_cafe.review_count = 100
+
+    serializer = CafeSerializer()
+
+    response = serializer.get_tagline(mock_cafe)
+
+    assert response == "Local favorite 🔥"
+
+
+
+    # ARRANGE
+    # 1. Create a Mock object, and assign it to a variable (e.g. mock_cafe)
+    #    Check out the unittest documentation for examples
+    # 2. Configure ONLY the attribute the method needs
+    #    mock_cafe.review_count = 100
+    
+    # ACT
+    # 3. Instantiate the serializer (it won’t need any data yet!)
+    
+    # ACT
+    # 4. Call the method on the serializer we want to test directly, passing our mock object
+    #    (get_tagline with our mock_cafe as the argument)
+
+    # ASSERT
+    # 4. Check the return value is the expected string
 
 
 
